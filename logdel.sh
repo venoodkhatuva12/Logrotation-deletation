@@ -17,29 +17,19 @@ if [ -a $SERVERNAME/Catilina.log ];
 
 then # file exists
 
-    FILE1=$(du -ks $AIEP/moofwd-rt.log | awk '{print $1}') # get file size in K
+    FILE1=$(du -ks $SERVERNAME/Catilina.log | awk '{print $1}') # get file size in K
 
 
 
     if [ $FILE1 -ge 2097152 ]; # file size is greater than or equal to 2 GB
 
-    then # delete
-
-        #echo "File size >= 2 GB, deleting file"
-
+    then 
         cat /dev/null > $SERVERNAME/Catilina.log
-
-
 
     elif [ $FILE1 -ge 1048576 ]; # file size is greater than 1 GB
 
-    then # send mail
-
+    then # echo and send mail to admin
         echo "File size has exceeded 1 GB" | mail -s " Name of Server  /path/of/server/ " admin@domain.com -c admin2@domain.com
-
-   # else # file size did not reach 1 GB
-
-   # echo "File size is under 1 GB"
 
     fi
 
